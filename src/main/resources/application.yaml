@@ -2,7 +2,7 @@ spring:
   application:
     name: server
   datasource:
-    url: jdbc:mysql://localhost:3306/khuthondb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/khuthondb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: khureka
     password: khureka
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -14,3 +14,7 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
+
+jwt:
+  secret: c2VjcmV0S2V5Rm9ySldUVGhhdElzVmVyeVNlY3VyZUFuZExvbmdFbm91Z2hGb3JIUzUxMkFsZ29yaXRobQ==
+  access-token-validity-in-seconds: 3600

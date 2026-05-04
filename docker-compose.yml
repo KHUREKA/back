@@ -9,8 +9,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: khuthondb
-      MYSQL_USER: khuthon
-      MYSQL_PASSWORD: khuthon_password
+      MYSQL_USER: khureka
+      MYSQL_PASSWORD: khureka
     volumes:
       - mysql-data:/var/lib/mysql
     command:
