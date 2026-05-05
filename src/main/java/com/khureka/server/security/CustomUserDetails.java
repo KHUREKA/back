@@ -1,6 +1,6 @@
 package com.khureka.server.security;
 
-import com.khureka.server.domain.user.entity.User;
+import com.khureka.server.domain.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,6 +1,6 @@
-package com.khureka.server.domain.user.repository;
+package com.khureka.server.auth.repository;
 
-import com.khureka.server.domain.user.entity.User;
+import com.khureka.server.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

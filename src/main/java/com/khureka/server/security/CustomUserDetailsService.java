@@ -1,7 +1,7 @@
 package com.khureka.server.security;
 
-import com.khureka.server.domain.user.entity.User;
-import com.khureka.server.domain.user.repository.UserRepository;
+import com.khureka.server.domain.User;
+import com.khureka.server.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

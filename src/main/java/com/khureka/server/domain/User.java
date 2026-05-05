@@ -1,4 +1,4 @@
-package com.khureka.server.domain.user.entity;
+package com.khureka.server.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

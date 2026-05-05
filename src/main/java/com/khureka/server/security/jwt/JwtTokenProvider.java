@@ -1,5 +1,7 @@
 package com.khureka.server.security.jwt;
 
+import com.khureka.server.domain.Role;
+import com.khureka.server.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -14,7 +16,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -80,10 +81,10 @@ public class JwtTokenProvider {
         String username = claims.get("username", String.class);
         String roleStr = authorities.isEmpty() ? "USER" : authorities.iterator().next().getAuthority().replace("ROLE_", "");
 
-        com.khureka.server.domain.user.entity.User user = com.khureka.server.domain.user.entity.User.builder()
+        User user = User.builder()
                 .email(claims.getSubject())
                 .username(username)
-                .role(com.khureka.server.domain.user.entity.Role.valueOf(roleStr))
+                .role(Role.valueOf(roleStr))
                 .build();
 
         com.khureka.server.security.CustomUserDetails principal = new com.khureka.server.security.CustomUserDetails(user);
