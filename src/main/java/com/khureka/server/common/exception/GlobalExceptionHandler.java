@@ -10,6 +10,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -134,6 +135,32 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error(
                         ErrorResponse.of(
                                 ErrorCode.INVALID_TYPE,
+                                message,
+                                request.getRequestURI()
+                        )
+                ));
+    }
+
+    /**
+     * 필수 요청 파라미터 누락 처리.
+     */
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ApiResponse<Void>> handleMissingServletRequestParameterException(
+            MissingServletRequestParameterException e,
+            HttpServletRequest request
+    ) {
+        String message = String.format("'%s' 파라미터가 누락되었습니다.", e.getParameterName());
+
+        log.warn("[MissingParameterException] message={}, path={}",
+                message,
+                request.getRequestURI()
+        );
+
+        return ResponseEntity
+                .status(ErrorCode.INVALID_REQUEST.toHttpStatus())
+                .body(ApiResponse.error(
+                        ErrorResponse.of(
+                                ErrorCode.INVALID_REQUEST,
                                 message,
                                 request.getRequestURI()
                         )

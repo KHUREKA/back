@@ -30,6 +30,7 @@ public class ApplicationResponse {
     private String venueName;
     private LocalDateTime startTime;
     private LocalDateTime lotteryAt;
+    private String thumbnailUrl;
 
     // 구역 정보
     private String priority1ZoneName;
@@ -55,6 +56,7 @@ public class ApplicationResponse {
                 .venueName(app.getSchedule().getEvent().getVenueName())
                 .startTime(app.getSchedule().getStartTime())
                 .lotteryAt(app.getSchedule().getLotteryAt())
+                .thumbnailUrl(app.getSchedule().getEvent().getThumbnailUrl())
                 .priority1ZoneName(app.getPriority1SeatZone() != null
                         ? app.getPriority1SeatZone().getName() : null)
                 .priority2ZoneName(app.getPriority2SeatZone() != null

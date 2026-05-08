@@ -30,6 +30,7 @@ public class TicketResponse {
     private Double destinationLatitude;
     private Double destinationLongitude;
     private LocalDateTime startTime;
+    private String thumbnailUrl;
 
     // 배정 구역 정보
     private String assignedZoneName;
@@ -67,6 +68,7 @@ public class TicketResponse {
                 .destinationLatitude(app.getSchedule().getEvent().getDestinationLatitude())
                 .destinationLongitude(app.getSchedule().getEvent().getDestinationLongitude())
                 .startTime(app.getSchedule().getStartTime())
+                .thumbnailUrl(app.getSchedule().getEvent().getThumbnailUrl())
                 .assignedZoneName(app.getAssignedSeatZone().getName())
                 .zonePrice(app.getAssignedSeatZone().getPrice())
                 .seats(assignedSeats.stream()
