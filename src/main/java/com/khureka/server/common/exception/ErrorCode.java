@@ -55,7 +55,23 @@ public enum ErrorCode {
     USER_INVALID_PASSWORD("USER-400-001", 400, "비밀번호가 일치하지 않습니다."),
 
     // ===== Post =====
-    POST_NOT_FOUND("POST-404-001", 404, "게시글을 찾을 수 없습니다.");
+    POST_NOT_FOUND("POST-404-001", 404, "게시글을 찾을 수 없습니다."),
+
+    // ===== Ticket =====
+    EVENT_NOT_FOUND("TICKET-404-001", 404, "공연/경기를 찾을 수 없습니다."),
+    SCHEDULE_NOT_FOUND("TICKET-404-002", 404, "일정을 찾을 수 없습니다."),
+    SEAT_ZONE_NOT_FOUND("TICKET-404-003", 404, "좌석 구역을 찾을 수 없습니다."),
+    APPLICATION_NOT_FOUND("TICKET-404-004", 404, "응모 내역을 찾을 수 없습니다."),
+
+    APPLICATION_PERIOD_CLOSED("TICKET-400-001", 400, "응모 기간이 아닙니다."),
+    INVALID_SEAT_COUNT("TICKET-400-002", 400, "좌석 개수는 1~4장만 선택 가능합니다."),
+    PRIORITY_ZONE_REQUIRED("TICKET-400-003", 400, "수동 선택 시 1순위 좌석 구역은 필수입니다."),
+    ZONE_NOT_IN_SCHEDULE("TICKET-400-004", 400, "선택한 구역이 해당 일정에 속하지 않습니다."),
+    SCHEDULE_NOT_OPEN("TICKET-400-005", 400, "응모 접수가 열려있지 않은 일정입니다."),
+
+    DUPLICATE_APPLICATION("TICKET-409-001", 409, "이미 해당 일정에 응모하셨습니다."),
+
+    LOTTERY_ALREADY_DONE("TICKET-400-006", 400, "이미 추첨이 완료된 일정입니다.");
 
     private final String code;
     private final int httpStatus;

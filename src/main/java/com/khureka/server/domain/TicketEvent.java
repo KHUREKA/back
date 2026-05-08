@@ -47,8 +47,8 @@ public class TicketEvent extends BaseEntity {
 
     @Builder
     public TicketEvent(String title, EventCategory category, String keyword,
-                       String venueName, String venueAddress,
-                       String description, String thumbnailUrl) {
+            String venueName, String venueAddress,
+            String description, String thumbnailUrl) {
         this.title = title;
         this.category = category;
         this.keyword = keyword;

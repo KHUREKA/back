@@ -1,0 +1,20 @@
+﻿-- ============================================================
+-- Mock Data for Ticket Lottery System
+-- 紐⑤뱺 API ?뚮줈???뚯뒪?몄슜
+-- ============================================================
+
+-- 1. users (?뚯뒪???ъ슜??3紐?
+-- 鍮꾨?踰덊샇: password123 (BCrypt ?몄퐫??
+INSERT INTO users (email, password, username, role, phone) VALUES
+('user1@test.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '?띻만??, 'USER', '010-1111-1111'),
+('user2@test.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '源泥좎닔', 'USER', '010-2222-2222'),
+('admin@test.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '愿由ъ옄', 'ADMIN', '010-9999-9999');
+
+-- 2. ticket_events (怨듭뿰/寃쎄린 4媛?
+INSERT INTO ticket_events (title, category, keyword, venue_name, venue_address, description, thumbnail_url, created_at, updated_at) VALUES
+('?꾩쁺???꾧뎅?ъ뼱 肄섏꽌??2026', 'CONCERT', '?꾩쁺??肄섏꽌???몃줈???꾧뎅?ъ뼱', 'KSPO DOME', '?쒖슱?밸퀎???≫뙆援??щ┝?쎈줈 424',
+ '??쒕?援????媛???꾩쁺?낆쓽 2026 ?꾧뎅?ъ뼱 肄섏꽌?? 理쒓퀬??臾대?瑜?寃쏀뿕?섏꽭??',
+ 'https://khureka-bucket.s3.ap-northeast-2.amazonaws.com/events/concert_lim.jpg', NOW(), NOW()),
+
+('?쇱꽦 ?쇱씠?⑥쫰 vs LG ?몄쐢??, 'BASEBALL', '?쇱꽦 ?쇱씠?⑥쫰 LG ?몄쐢???쇨뎄 ?꾨줈?쇨뎄', '?援ъ궪?깅씪?댁삩利덊뙆??, '?援ш킅??떆 ?섏꽦援??쇨뎄?꾩꽕濡?1',
+ '2026 KBO 由ш렇 ?쇱꽦 ?쇱씠?⑥쫰 ?덇꼍湲? ?④굅???묒썝怨??④퍡?섏꽭??',

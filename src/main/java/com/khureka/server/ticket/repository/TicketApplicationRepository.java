@@ -76,7 +76,7 @@ public interface TicketApplicationRepository extends JpaRepository<TicketApplica
         SELECT a FROM TicketApplication a
         JOIN FETCH a.schedule s
         JOIN FETCH s.event
-        JOIN FETCH a.priority1SeatZone
+        LEFT JOIN FETCH a.priority1SeatZone
         LEFT JOIN FETCH a.priority2SeatZone
         LEFT JOIN FETCH a.priority3SeatZone
         LEFT JOIN FETCH a.assignedSeatZone

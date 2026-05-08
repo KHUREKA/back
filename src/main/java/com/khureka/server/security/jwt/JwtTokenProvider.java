@@ -50,8 +50,10 @@ public class JwtTokenProvider {
                 .collect(Collectors.joining(","));
 
         String actualUsername = "";
-        if (authentication.getPrincipal() instanceof com.khureka.server.security.CustomUserDetails) {
-            actualUsername = ((com.khureka.server.security.CustomUserDetails) authentication.getPrincipal()).getActualUsername();
+        Long userId = null;
+        if (authentication.getPrincipal() instanceof com.khureka.server.security.CustomUserDetails customUserDetails) {
+            actualUsername = customUserDetails.getActualUsername();
+            userId = customUserDetails.getUserId();
         }
 
         long now = (new Date()).getTime();
@@ -61,6 +63,7 @@ public class JwtTokenProvider {
                 .subject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .claim("username", actualUsername)
+                .claim("userId", userId)
                 .signWith(key)
                 .expiration(validity)
                 .compact();
@@ -79,6 +82,7 @@ public class JwtTokenProvider {
                         .collect(Collectors.toList());
 
         String username = claims.get("username", String.class);
+        Long userId = claims.get("userId", Long.class);
         String roleStr = authorities.isEmpty() ? "USER" : authorities.iterator().next().getAuthority().replace("ROLE_", "");
 
         User user = User.builder()
@@ -87,7 +91,8 @@ public class JwtTokenProvider {
                 .role(Role.valueOf(roleStr))
                 .build();
 
-        com.khureka.server.security.CustomUserDetails principal = new com.khureka.server.security.CustomUserDetails(user);
+        com.khureka.server.security.CustomUserDetails principal =
+                new com.khureka.server.security.CustomUserDetails(user, userId);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }

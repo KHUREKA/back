@@ -44,6 +44,12 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
     );
 
     /**
+     * 구역 내 특정 상태의 모든 좌석을 조회.
+     * (연석 배정 로직에서 사용)
+     */
+    List<Seat> findBySeatZoneIdAndStatus(Long seatZoneId, SeatStatus status);
+
+    /**
      * 특정 구역의 전체 좌석 조회.
      */
     List<Seat> findBySeatZoneId(Long seatZoneId);
