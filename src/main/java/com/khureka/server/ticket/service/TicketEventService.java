@@ -30,34 +30,44 @@ public class TicketEventService {
     // Step 1: 공연/경기 검색 & 상세 조회
     // ──────────────────────────────────────────
 
-    public List<TicketEventResponse> getAllEvents() {
+    public List<EventSummaryResponse> getAllEvents() {
         return ticketEventRepository.findAll().stream()
-                .map(TicketEventResponse::from)
+                .map(event -> toSummary(event, null, null))
                 .toList();
     }
 
-    public List<TicketEventResponse> getEventsByCategory(EventCategory category) {
+    public List<EventSummaryResponse> getEventsByCategory(EventCategory category) {
         return ticketEventRepository.findByCategory(category).stream()
-                .map(TicketEventResponse::from)
+                .map(event -> toSummary(event, null, null))
                 .toList();
     }
 
-    public List<TicketEventResponse> searchEvents(String keyword) {
+    public List<EventSummaryResponse> searchEvents(String keyword) {
         return ticketEventRepository.searchByKeyword(keyword).stream()
-                .map(TicketEventResponse::from)
+                .map(event -> toSummary(event, null, null))
                 .toList();
     }
 
-    public List<TicketEventResponse> searchEvents(EventCategory category, String keyword) {
+    public List<EventSummaryResponse> searchEvents(EventCategory category, String keyword) {
         return ticketEventRepository.searchByCategoryAndKeyword(category, keyword).stream()
-                .map(TicketEventResponse::from)
+                .map(event -> toSummary(event, null, null))
                 .toList();
     }
 
     public TicketEventResponse getEvent(Long eventId) {
         TicketEvent event = ticketEventRepository.findById(eventId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
-        return TicketEventResponse.from(event);
+
+        List<EventSchedule> schedules = eventScheduleRepository.findByEventIdOrderByStartTimeAsc(eventId);
+        List<Long> scheduleIds = schedules.stream().map(EventSchedule::getId).toList();
+        List<SeatZone> zones = seatZoneRepository.findAll().stream()
+                .filter(z -> scheduleIds.contains(z.getSchedule().getId()))
+                .toList();
+        Integer minPrice = zones.stream().map(SeatZone::getPrice).min(Integer::compare).orElse(null);
+        Integer maxPrice = zones.stream().map(SeatZone::getPrice).max(Integer::compare).orElse(null);
+        Integer expectedPrice = (minPrice != null && maxPrice != null) ? (minPrice + maxPrice) / 2 : (minPrice != null ? minPrice : maxPrice);
+
+        return TicketEventResponse.from(event, expectedPrice);
     }
 
     // ──────────────────────────────────────────

@@ -19,8 +19,9 @@ public class TicketEventResponse {
     private Double destinationLongitude;
     private String description;
     private String thumbnailUrl;
+    private Integer expectedPrice;
 
-    public static TicketEventResponse from(TicketEvent event) {
+    public static TicketEventResponse from(TicketEvent event, Integer expectedPrice) {
         return TicketEventResponse.builder()
                 .id(event.getId())
                 .title(event.getTitle())
@@ -32,6 +33,7 @@ public class TicketEventResponse {
                 .destinationLongitude(event.getDestinationLongitude())
                 .description(event.getDescription())
                 .thumbnailUrl(event.getThumbnailUrl())
+                .expectedPrice(expectedPrice)
                 .build();
     }
 }
