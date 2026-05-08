@@ -56,6 +56,12 @@ public class TicketEventController {
         return ApiResponse.success(ticketEventService.getEvent(eventId));
     }
 
+    @Operation(summary = "[STEP 1.5] 공연/경기의 일정(회차) 목록 조회", description = "특정 공연의 날짜/시간 목록을 조회하여 scheduleId를 얻습니다.")
+    @GetMapping("/{eventId}/schedules")
+    public ApiResponse<List<EventScheduleResponse>> getSchedules(@PathVariable Long eventId) {
+        return ApiResponse.success(ticketEventService.getSchedules(eventId));
+    }
+
     @Operation(summary = "[STEP 2] 좌석 구역 목록 조회 (잔여 좌석 포함)")
     @GetMapping("/schedules/{scheduleId}/seat-zones")
     public ApiResponse<List<SeatZoneResponse>> getSeatZones(@PathVariable Long scheduleId) {
