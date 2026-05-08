@@ -5,11 +5,14 @@ import com.khureka.server.domain.EventCategory;
 import com.khureka.server.ticket.dto.EventScheduleResponse;
 import com.khureka.server.ticket.dto.SeatZoneResponse;
 import com.khureka.server.ticket.dto.TicketEventResponse;
+import com.khureka.server.common.s3.S3Service;
 import com.khureka.server.ticket.service.TicketEventService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,6 +30,14 @@ import java.util.List;
 public class TicketEventController {
 
     private final TicketEventService ticketEventService;
+    private final S3Service s3Service;
+
+    @Operation(summary = "공연/경기 이미지 업로드 (관리자)", description = "S3에 이미지를 업로드하고 URL을 반환합니다.")
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResponse<String> uploadImage(@RequestPart("file") MultipartFile file) {
+        String url = s3Service.upload(file, "events");
+        return ApiResponse.success(url);
+    }
 
     @Operation(summary = "공연/경기 목록 조회", description = "전체 목록 또는 카테고리/키워드로 검색")
     @GetMapping
