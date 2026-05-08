@@ -34,3 +34,4 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
+>>>>>>> 7b8f0850fcd8ba033a1eb95a174d604e94ba79a3

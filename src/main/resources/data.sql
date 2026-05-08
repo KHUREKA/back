@@ -26,7 +26,13 @@ INSERT INTO ticket_events (title, category, keyword, venue_name, venue_address, 
 
 ('T1 vs Gen.G 결승전', 'ESPORTS', 'T1 GenG 롤드컵 이스포츠 LoL', '인천 송도컨벤시아', '인천광역시 연수구 센트럴로 123', 37.3878012, 126.6432053,
  '2026 LoL Champions Korea 결승전. T1과 Gen.G의 최종 대결!',
- 'https://khureka-bucket.s3.ap-northeast-2.amazonaws.com/events/esports_lck.jpg', NOW(), NOW());
+ 'https://khureka-bucket.s3.ap-northeast-2.amazonaws.com/events/esports_lck.jpg', NOW(), NOW()),
+('연극 햄릿', 'MUSICAL', '햄릿 연극 명동예술극장 클래식', '명동예술극장', '서울특별시 중구 남대문로 2길 12', 37.5642, 126.9847,
+ '셰익스피어의 4대 비극 중 하나인 햄릿. 명동예술극장에서 만나는 고전의 감동.',
+ 'https://khureka-bucket.s3.ap-northeast-2.amazonaws.com/events/hamlet.jpg', NOW(), NOW()),
+('뮤지컬 시카고', 'MUSICAL', '시카고 뮤지컬 재즈 브로드웨이', '디큐브 아트센터', '서울특별시 구로구 경인로 662', 37.5088, 126.8890,
+ '올 타임 베스트셀러 뮤지컬 시카고. 화려한 무대와 재즈의 향연.',
+ 'https://khureka-bucket.s3.ap-northeast-2.amazonaws.com/events/chicago.jpg', NOW(), NOW());
 
 -- 3. event_schedules (이벤트별 일정)
 -- 임영웅 콘서트: 2일 공연
@@ -45,7 +51,13 @@ INSERT INTO event_schedules (event_id, start_time, end_time, application_open_at
 
 -- e스포츠: 1경기
 INSERT INTO event_schedules (event_id, start_time, end_time, application_open_at, application_close_at, lottery_at, status, created_at, updated_at) VALUES
-(4, '2026-07-10 17:00:00', '2026-07-10 22:00:00', '2026-05-01 00:00:00', '2026-06-30 23:59:59', '2026-07-01 12:00:00', 'APPLICATION_OPEN', NOW(), NOW());
+(4, '2026-07-10 17:00:00', '2026-07-10 22:00:00', '2026-05-01 00:00:00', '2026-06-30 23:59:59', '2026-07-01 12:00:00', 'APPLICATION_OPEN', NOW(), NOW()),
+
+-- 연극 햄릿: 1일 공연
+(5, '2026-07-15 19:30:00', '2026-07-15 22:00:00', '2026-06-01 00:00:00', '2026-07-10 23:59:59', '2026-07-11 12:00:00', 'APPLICATION_OPEN', NOW(), NOW()),
+
+-- 뮤지컬 시카고: 1일 공연
+(6, '2026-08-01 14:00:00', '2026-08-01 17:00:00', '2026-07-01 00:00:00', '2026-07-25 23:59:59', '2026-07-26 12:00:00', 'APPLICATION_OPEN', NOW(), NOW());
 
 -- 4. seat_zones (일정별 좌석 구역)
 -- 임영웅 콘서트 Day1 (schedule_id=1): 4개 구역

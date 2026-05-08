@@ -10,7 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 티켓 이벤트 서비스.
@@ -117,5 +122,99 @@ public class TicketEventService {
                     return SeatZoneResponse.from(zone, available);
                 })
                 .toList();
+    }
+
+    // ──────────────────────────────────────────
+    // 홈 화면 API: 내 근처 문화 & 이런 문화도 있어요
+    // ──────────────────────────────────────────
+
+    /**
+     * 홈 화면에 필요한 공연 목록을 조회한다.
+     *
+     * @param userLat 사용자 위도 (null 가능)
+     * @param userLon 사용자 경도 (null 가능)
+     */
+    public EventHomeResponse getHomeEvents(Double userLat, Double userLon) {
+        List<TicketEvent> allEvents = ticketEventRepository.findAll();
+
+        List<EventSummaryResponse> summaries = allEvents.stream()
+                .map(event -> toSummary(event, userLat, userLon))
+                .toList();
+
+        // 1. 내 근처 문화: 거리 순 상위 5개 (사용자 위치가 있을 때만 거리순 정렬)
+        List<EventSummaryResponse> nearbyEvents;
+        if (userLat != null && userLon != null) {
+            nearbyEvents = summaries.stream()
+                    .sorted(Comparator.comparing(EventSummaryResponse::getDistance))
+                    .limit(5)
+                    .toList();
+        } else {
+            // 위치 정보 없으면 그냥 상위 5개
+            nearbyEvents = summaries.stream().limit(5).toList();
+        }
+
+        // 2. 이런 문화도 있어요: 나머지 중 랜덤하게 최대 5개
+        List<EventSummaryResponse> remaining = summaries.stream()
+                .filter(s -> !nearbyEvents.contains(s))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        Collections.shuffle(remaining); // 무작위 추천
+
+        List<EventSummaryResponse> recommendedEvents = remaining.stream()
+                .limit(5)
+                .toList();
+
+        return EventHomeResponse.builder()
+                .nearbyEvents(nearbyEvents)
+                .recommendedEvents(recommendedEvents)
+                .build();
+    }
+
+    private EventSummaryResponse toSummary(TicketEvent event, Double userLat, Double userLon) {
+        // 거리 계산
+        Double distance = null;
+        String distanceDisplay = null;
+
+        if (userLat != null && userLon != null &&
+                event.getDestinationLatitude() != null && event.getDestinationLongitude() != null) {
+            distance = calculateDistance(userLat, userLon,
+                    event.getDestinationLatitude(), event.getDestinationLongitude());
+            distanceDisplay = String.format("%.1fkm", distance);
+        }
+
+        // 날짜 범위 계산
+        List<EventSchedule> schedules = eventScheduleRepository.findByEventIdOrderByStartTimeAsc(event.getId());
+        String dateRange = "";
+        if (!schedules.isEmpty()) {
+            LocalDateTime start = schedules.get(0).getStartTime();
+            LocalDateTime end = schedules.get(schedules.size() - 1).getStartTime(); // 종료 시간으로 할 수도 있지만 보통 시작일~마지막날시작일
+
+            DateTimeFormatter fullFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+            DateTimeFormatter shortFormatter = DateTimeFormatter.ofPattern("MM.dd");
+
+            dateRange = start.format(fullFormatter) + " - " + end.format(shortFormatter);
+        }
+
+        return EventSummaryResponse.builder()
+                .id(event.getId())
+                .title(event.getTitle())
+                .venueName(event.getVenueName())
+                .dateRange(dateRange)
+                .category(event.getCategory())
+                .thumbnailUrl(event.getThumbnailUrl())
+                .distance(distance)
+                .distanceDisplay(distanceDisplay)
+                .build();
+    }
+
+    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        double R = 6371; // 지구 반경 (km)
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
     }
 }

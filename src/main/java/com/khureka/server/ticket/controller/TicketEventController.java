@@ -2,9 +2,7 @@ package com.khureka.server.ticket.controller;
 
 import com.khureka.server.common.response.ApiResponse;
 import com.khureka.server.domain.EventCategory;
-import com.khureka.server.ticket.dto.EventScheduleResponse;
-import com.khureka.server.ticket.dto.SeatZoneResponse;
-import com.khureka.server.ticket.dto.TicketEventResponse;
+import com.khureka.server.ticket.dto.*;
 import com.khureka.server.common.s3.S3Service;
 import com.khureka.server.ticket.service.TicketEventService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,6 +35,15 @@ public class TicketEventController {
     public ApiResponse<String> uploadImage(@RequestPart("file") MultipartFile file) {
         String url = s3Service.upload(file, "events");
         return ApiResponse.success(url);
+    }
+
+    @Operation(summary = "홈 화면 정보 조회", description = "내 주변 문화(상위 5개) 및 이런 문화도 있어요 추천")
+    @GetMapping("/home")
+    public ApiResponse<EventHomeResponse> getHomeEvents(
+            @RequestParam(required = false) Double lat,
+            @RequestParam(required = false) Double lon) {
+
+        return ApiResponse.success(ticketEventService.getHomeEvents(lat, lon));
     }
 
     @Operation(summary = "공연/경기 목록 조회", description = "전체 목록 또는 카테고리/키워드로 검색")
