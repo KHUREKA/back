@@ -117,27 +117,27 @@ INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_nu
 (2,'C','1','AVAILABLE',3,1,true,NOW(),NOW()),(2,'C','2','AVAILABLE',3,2,false,NOW(),NOW()),(2,'C','3','AVAILABLE',3,3,false,NOW(),NOW()),(2,'C','4','AVAILABLE',3,4,false,NOW(),NOW()),(2,'C','5','AVAILABLE',3,5,true,NOW(),NOW());
 
 -- S석 (zone_id=3): 3열 x 5좌석 = 15석
-INSERT INTO seats (seat_zone_id, row_label, seat_number, status, created_at, updated_at) VALUES
-(3,'A','1','AVAILABLE',NOW(),NOW()),(3,'A','2','AVAILABLE',NOW(),NOW()),(3,'A','3','AVAILABLE',NOW(),NOW()),(3,'A','4','AVAILABLE',NOW(),NOW()),(3,'A','5','AVAILABLE',NOW(),NOW()),
-(3,'B','1','AVAILABLE',NOW(),NOW()),(3,'B','2','AVAILABLE',NOW(),NOW()),(3,'B','3','AVAILABLE',NOW(),NOW()),(3,'B','4','AVAILABLE',NOW(),NOW()),(3,'B','5','AVAILABLE',NOW(),NOW()),
-(3,'C','1','AVAILABLE',NOW(),NOW()),(3,'C','2','AVAILABLE',NOW(),NOW()),(3,'C','3','AVAILABLE',NOW(),NOW()),(3,'C','4','AVAILABLE',NOW(),NOW()),(3,'C','5','AVAILABLE',NOW(),NOW());
+INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_num, is_aisle, created_at, updated_at) VALUES
+(3,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(3,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(3,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(3,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(3,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
+(3,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(3,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(3,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(3,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(3,'B','5','AVAILABLE',2,5,true,NOW(),NOW()),
+(3,'C','1','AVAILABLE',3,1,true,NOW(),NOW()),(3,'C','2','AVAILABLE',3,2,false,NOW(),NOW()),(3,'C','3','AVAILABLE',3,3,false,NOW(),NOW()),(3,'C','4','AVAILABLE',3,4,false,NOW(),NOW()),(3,'C','5','AVAILABLE',3,5,true,NOW(),NOW());
 
 -- A석 (zone_id=4): 3열 x 5좌석 = 15석
-INSERT INTO seats (seat_zone_id, row_label, seat_number, status, created_at, updated_at) VALUES
-(4,'A','1','AVAILABLE',NOW(),NOW()),(4,'A','2','AVAILABLE',NOW(),NOW()),(4,'A','3','AVAILABLE',NOW(),NOW()),(4,'A','4','AVAILABLE',NOW(),NOW()),(4,'A','5','AVAILABLE',NOW(),NOW()),
-(4,'B','1','AVAILABLE',NOW(),NOW()),(4,'B','2','AVAILABLE',NOW(),NOW()),(4,'B','3','AVAILABLE',NOW(),NOW()),(4,'B','4','AVAILABLE',NOW(),NOW()),(4,'B','5','AVAILABLE',NOW(),NOW()),
-(4,'C','1','AVAILABLE',NOW(),NOW()),(4,'C','2','AVAILABLE',NOW(),NOW()),(4,'C','3','AVAILABLE',NOW(),NOW()),(4,'C','4','AVAILABLE',NOW(),NOW()),(4,'C','5','AVAILABLE',NOW(),NOW());
+INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_num, is_aisle, created_at, updated_at) VALUES
+(4,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(4,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(4,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(4,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(4,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
+(4,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(4,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(4,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(4,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(4,'B','5','AVAILABLE',2,5,true,NOW(),NOW()),
+(4,'C','1','AVAILABLE',3,1,true,NOW(),NOW()),(4,'C','2','AVAILABLE',3,2,false,NOW(),NOW()),(4,'C','3','AVAILABLE',3,3,false,NOW(),NOW()),(4,'C','4','AVAILABLE',3,4,false,NOW(),NOW()),(4,'C','5','AVAILABLE',3,5,true,NOW(),NOW());
 
 -- == 야구 ==
 -- 프리미엄석 (zone_id=9): 2열 x 5좌석 = 10석
-INSERT INTO seats (seat_zone_id, row_label, seat_number, status, created_at, updated_at) VALUES
-(9,'A','1','AVAILABLE',NOW(),NOW()),(9,'A','2','AVAILABLE',NOW(),NOW()),(9,'A','3','AVAILABLE',NOW(),NOW()),(9,'A','4','AVAILABLE',NOW(),NOW()),(9,'A','5','AVAILABLE',NOW(),NOW()),
-(9,'B','1','AVAILABLE',NOW(),NOW()),(9,'B','2','AVAILABLE',NOW(),NOW()),(9,'B','3','AVAILABLE',NOW(),NOW()),(9,'B','4','AVAILABLE',NOW(),NOW()),(9,'B','5','AVAILABLE',NOW(),NOW());
+INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_num, is_aisle, created_at, updated_at) VALUES
+(9,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(9,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(9,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(9,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(9,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
+(9,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(9,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(9,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(9,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(9,'B','5','AVAILABLE',2,5,true,NOW(),NOW());
 
 -- 1루 내야석 (zone_id=10): 2열 x 5좌석 = 10석
-INSERT INTO seats (seat_zone_id, row_label, seat_number, status, created_at, updated_at) VALUES
-(10,'A','1','AVAILABLE',NOW(),NOW()),(10,'A','2','AVAILABLE',NOW(),NOW()),(10,'A','3','AVAILABLE',NOW(),NOW()),(10,'A','4','AVAILABLE',NOW(),NOW()),(10,'A','5','AVAILABLE',NOW(),NOW()),
-(10,'B','1','AVAILABLE',NOW(),NOW()),(10,'B','2','AVAILABLE',NOW(),NOW()),(10,'B','3','AVAILABLE',NOW(),NOW()),(10,'B','4','AVAILABLE',NOW(),NOW()),(10,'B','5','AVAILABLE',NOW(),NOW());
+INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_num, is_aisle, created_at, updated_at) VALUES
+(10,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(10,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(10,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(10,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(10,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
+(10,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(10,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(10,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(10,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(10,'B','5','AVAILABLE',2,5,true,NOW(),NOW());
 
 -- 3루 내야석 (zone_id=11): 2열 x 5좌석 = 10석
 INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_num, is_aisle, created_at, updated_at) VALUES
@@ -145,27 +145,27 @@ INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_nu
 (11,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(11,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(11,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(11,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(11,'B','5','AVAILABLE',2,5,true,NOW(),NOW());
 
 -- 외야석 (zone_id=12): 2열 x 5좌석 = 10석
-INSERT INTO seats (seat_zone_id, row_label, seat_number, status, created_at, updated_at) VALUES
-(12,'A','1','AVAILABLE',NOW(),NOW()),(12,'A','2','AVAILABLE',NOW(),NOW()),(12,'A','3','AVAILABLE',NOW(),NOW()),(12,'A','4','AVAILABLE',NOW(),NOW()),(12,'A','5','AVAILABLE',NOW(),NOW()),
-(12,'B','1','AVAILABLE',NOW(),NOW()),(12,'B','2','AVAILABLE',NOW(),NOW()),(12,'B','3','AVAILABLE',NOW(),NOW()),(12,'B','4','AVAILABLE',NOW(),NOW()),(12,'B','5','AVAILABLE',NOW(),NOW());
+INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_num, is_aisle, created_at, updated_at) VALUES
+(12,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(12,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(12,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(12,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(12,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
+(12,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(12,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(12,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(12,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(12,'B','5','AVAILABLE',2,5,true,NOW(),NOW());
 
 -- 응원석 (zone_id=13): 2열 x 5좌석 = 10석
-INSERT INTO seats (seat_zone_id, row_label, seat_number, status, created_at, updated_at) VALUES
-(13,'A','1','AVAILABLE',NOW(),NOW()),(13,'A','2','AVAILABLE',NOW(),NOW()),(13,'A','3','AVAILABLE',NOW(),NOW()),(13,'A','4','AVAILABLE',NOW(),NOW()),(13,'A','5','AVAILABLE',NOW(),NOW()),
-(13,'B','1','AVAILABLE',NOW(),NOW()),(13,'B','2','AVAILABLE',NOW(),NOW()),(13,'B','3','AVAILABLE',NOW(),NOW()),(13,'B','4','AVAILABLE',NOW(),NOW()),(13,'B','5','AVAILABLE',NOW(),NOW());
+INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_num, is_aisle, created_at, updated_at) VALUES
+(13,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(13,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(13,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(13,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(13,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
+(13,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(13,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(13,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(13,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(13,'B','5','AVAILABLE',2,5,true,NOW(),NOW());
 
 -- == e스포츠 ==
 -- 다이아몬드석 (zone_id=20): 2열 x 5좌석 = 10석
-INSERT INTO seats (seat_zone_id, row_label, seat_number, status, created_at, updated_at) VALUES
-(20,'A','1','AVAILABLE',NOW(),NOW()),(20,'A','2','AVAILABLE',NOW(),NOW()),(20,'A','3','AVAILABLE',NOW(),NOW()),(20,'A','4','AVAILABLE',NOW(),NOW()),(20,'A','5','AVAILABLE',NOW(),NOW()),
-(20,'B','1','AVAILABLE',NOW(),NOW()),(20,'B','2','AVAILABLE',NOW(),NOW()),(20,'B','3','AVAILABLE',NOW(),NOW()),(20,'B','4','AVAILABLE',NOW(),NOW()),(20,'B','5','AVAILABLE',NOW(),NOW());
+INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_num, is_aisle, created_at, updated_at) VALUES
+(20,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(20,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(20,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(20,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(20,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
+(20,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(20,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(20,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(20,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(20,'B','5','AVAILABLE',2,5,true,NOW(),NOW());
 
 -- 골드석 (zone_id=21): 2열 x 5좌석 = 10석
-INSERT INTO seats (seat_zone_id, row_label, seat_number, status, created_at, updated_at) VALUES
-(21,'A','1','AVAILABLE',NOW(),NOW()),(21,'A','2','AVAILABLE',NOW(),NOW()),(21,'A','3','AVAILABLE',NOW(),NOW()),(21,'A','4','AVAILABLE',NOW(),NOW()),(21,'A','5','AVAILABLE',NOW(),NOW()),
-(21,'B','1','AVAILABLE',NOW(),NOW()),(21,'B','2','AVAILABLE',NOW(),NOW()),(21,'B','3','AVAILABLE',NOW(),NOW()),(21,'B','4','AVAILABLE',NOW(),NOW()),(21,'B','5','AVAILABLE',NOW(),NOW());
+INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_num, is_aisle, created_at, updated_at) VALUES
+(21,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(21,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(21,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(21,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(21,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
+(21,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(21,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(21,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(21,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(21,'B','5','AVAILABLE',2,5,true,NOW(),NOW());
 
 -- 일반석 (zone_id=22): 2열 x 5좌석 = 10석
-INSERT INTO seats (seat_zone_id, row_label, seat_number, status, created_at, updated_at) VALUES
-(22,'A','1','AVAILABLE',NOW(),NOW()),(22,'A','2','AVAILABLE',NOW(),NOW()),(22,'A','3','AVAILABLE',NOW(),NOW()),(22,'A','4','AVAILABLE',NOW(),NOW()),(22,'A','5','AVAILABLE',NOW(),NOW()),
-(22,'B','1','AVAILABLE',NOW(),NOW()),(22,'B','2','AVAILABLE',NOW(),NOW()),(22,'B','3','AVAILABLE',NOW(),NOW()),(22,'B','4','AVAILABLE',NOW(),NOW()),(22,'B','5','AVAILABLE',NOW(),NOW());
+INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_num, is_aisle, created_at, updated_at) VALUES
+(22,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(22,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(22,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(22,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(22,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
+(22,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(22,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(22,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(22,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(22,'B','5','AVAILABLE',2,5,true,NOW(),NOW());
