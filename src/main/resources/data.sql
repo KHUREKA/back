@@ -11,20 +11,20 @@ INSERT INTO users (email, password, username, role, phone) VALUES
 ('admin@test.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '관리자', 'ADMIN', '010-9999-9999');
 
 -- 2. ticket_events (공연/경기 4개)
-INSERT INTO ticket_events (title, category, keyword, venue_name, venue_address, description, thumbnail_url, created_at, updated_at) VALUES
-('임영웅 전국투어 콘서트 2026', 'CONCERT', '임영웅 콘서트 트로트 전국투어', 'KSPO DOME', '서울특별시 송파구 올림픽로 424',
+INSERT INTO ticket_events (title, category, keyword, venue_name, venue_address, destination_latitude, destination_longitude, description, thumbnail_url, created_at, updated_at) VALUES
+('임영웅 전국투어 콘서트 2026', 'CONCERT', '임영웅 콘서트 트로트 전국투어', 'KSPO DOME', '서울특별시 송파구 올림픽로 424', 37.5150176, 127.0729773,
  '대한민국 대표 가수 임영웅의 2026 전국투어 콘서트. 최고의 무대를 경험하세요.',
  'https://khureka-bucket.s3.ap-northeast-2.amazonaws.com/events/concert_lim.jpg', NOW(), NOW()),
 
-('삼성 라이온즈 vs LG 트윈스', 'BASEBALL', '삼성 라이온즈 LG 트윈스 야구 프로야구', '대구삼성라이온즈파크', '대구광역시 수성구 야구전설로 1',
+('삼성 라이온즈 vs LG 트윈스', 'BASEBALL', '삼성 라이온즈 LG 트윈스 야구 프로야구', '대구삼성라이온즈파크', '대구광역시 수성구 야구전설로 1', 35.8419896, 128.6811467,
  '2026 KBO 리그 삼성 라이온즈 홈경기. 뜨거운 응원과 함께하세요!',
  'https://khureka-bucket.s3.ap-northeast-2.amazonaws.com/events/baseball_samsung.jpg', NOW(), NOW()),
 
-('뮤지컬 오페라의 유령', 'MUSICAL', '오페라의유령 뮤지컬 브로드웨이', '블루스퀘어 신한카드홀', '서울특별시 용산구 이태원로 294',
+('뮤지컬 오페라의 유령', 'MUSICAL', '오페라의유령 뮤지컬 브로드웨이', '블루스퀘어 신한카드홀', '서울특별시 용산구 이태원로 294', 37.5415021, 126.9936951,
  '세계적인 뮤지컬 오페라의 유령 내한공연. 감동의 무대를 만나보세요.',
  'https://khureka-bucket.s3.ap-northeast-2.amazonaws.com/events/musical_phantom.jpg', NOW(), NOW()),
 
-('T1 vs Gen.G 결승전', 'ESPORTS', 'T1 GenG 롤드컵 이스포츠 LoL', '인천 송도컨벤시아', '인천광역시 연수구 센트럴로 123',
+('T1 vs Gen.G 결승전', 'ESPORTS', 'T1 GenG 롤드컵 이스포츠 LoL', '인천 송도컨벤시아', '인천광역시 연수구 센트럴로 123', 37.3878012, 126.6432053,
  '2026 LoL Champions Korea 결승전. T1과 Gen.G의 최종 대결!',
  'https://khureka-bucket.s3.ap-northeast-2.amazonaws.com/events/esports_lck.jpg', NOW(), NOW());
 

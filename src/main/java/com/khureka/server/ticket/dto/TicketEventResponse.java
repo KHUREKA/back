@@ -15,6 +15,8 @@ public class TicketEventResponse {
     private String keyword;
     private String venueName;
     private String venueAddress;
+    private Double destinationLatitude;
+    private Double destinationLongitude;
     private String description;
     private String thumbnailUrl;
 
@@ -26,6 +28,8 @@ public class TicketEventResponse {
                 .keyword(event.getKeyword())
                 .venueName(event.getVenueName())
                 .venueAddress(event.getVenueAddress())
+                .destinationLatitude(event.getDestinationLatitude())
+                .destinationLongitude(event.getDestinationLongitude())
                 .description(event.getDescription())
                 .thumbnailUrl(event.getThumbnailUrl())
                 .build();

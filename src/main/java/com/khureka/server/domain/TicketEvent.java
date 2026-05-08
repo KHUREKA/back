@@ -39,6 +39,12 @@ public class TicketEvent extends BaseEntity {
     @Column(length = 255)
     private String venueAddress;
 
+    @Column(nullable = false)
+    private Double destinationLatitude;
+
+    @Column(nullable = false)
+    private Double destinationLongitude;
+
     @Column(columnDefinition = "TEXT")
     private String description;
 
@@ -48,12 +54,15 @@ public class TicketEvent extends BaseEntity {
     @Builder
     public TicketEvent(String title, EventCategory category, String keyword,
             String venueName, String venueAddress,
+            Double destinationLatitude, Double destinationLongitude,
             String description, String thumbnailUrl) {
         this.title = title;
         this.category = category;
         this.keyword = keyword;
         this.venueName = venueName;
         this.venueAddress = venueAddress;
+        this.destinationLatitude = destinationLatitude;
+        this.destinationLongitude = destinationLongitude;
         this.description = description;
         this.thumbnailUrl = thumbnailUrl;
     }

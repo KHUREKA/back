@@ -26,6 +26,8 @@ public class TicketResponse {
     private String eventTitle;
     private String venueName;
     private String venueAddress;
+    private Double destinationLatitude;
+    private Double destinationLongitude;
     private LocalDateTime startTime;
 
     // 배정 구역 정보
@@ -60,6 +62,8 @@ public class TicketResponse {
                 .eventTitle(app.getSchedule().getEvent().getTitle())
                 .venueName(app.getSchedule().getEvent().getVenueName())
                 .venueAddress(app.getSchedule().getEvent().getVenueAddress())
+                .destinationLatitude(app.getSchedule().getEvent().getDestinationLatitude())
+                .destinationLongitude(app.getSchedule().getEvent().getDestinationLongitude())
                 .startTime(app.getSchedule().getStartTime())
                 .assignedZoneName(app.getAssignedSeatZone().getName())
                 .zonePrice(app.getAssignedSeatZone().getPrice())
