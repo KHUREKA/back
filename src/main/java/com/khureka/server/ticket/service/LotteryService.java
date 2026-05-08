@@ -78,7 +78,7 @@ public class LotteryService {
 
             if (Boolean.TRUE.equals(application.getAutoAssign())) {
                 // 자동 선택 모드: 모든 구역 대상
-                selectedSeats = findSeatsFromAnyZone(scheduleId, requestedCount);
+                selectedSeats = findSeatsFromAnyZone(scheduleId, requestedCount, application.getSeatPreference());
             } else {
                 // 수동 선택 모드: 1순위 → 2순위 → 3순위 순서
                 selectedSeats = findSeatsByPriority(application, requestedCount);
@@ -153,7 +153,7 @@ public class LotteryService {
         }
 
         for (SeatZone zone : priorityZones) {
-            List<Seat> seats = findContiguousOrRandomSeats(zone.getId(), requestedCount);
+            List<Seat> seats = findContiguousOrRandomSeats(zone.getId(), requestedCount, application.getSeatPreference());
             if (seats.size() == requestedCount) {
                 return seats;
             }
@@ -196,13 +196,13 @@ public class LotteryService {
 
         // 첫 번째 구역 (이미 RAND()로 정렬됨)
         SeatZone selectedZone = availableZones.get(0);
-        return findContiguousOrRandomSeats(selectedZone.getId(), requestedCount);
+        return findContiguousOrRandomSeats(selectedZone.getId(), requestedCount, application.getSeatPreference());
     }
 
     /**
      * 전체 구역에서 좌석 탐색 (autoAssign 모드).
      */
-    private List<Seat> findSeatsFromAnyZone(Long scheduleId, int requestedCount) {
+    private List<Seat> findSeatsFromAnyZone(Long scheduleId, int requestedCount, SeatPreference preference) {
         List<SeatZone> availableZones = seatZoneRepository.findAnyAvailableZone(
                 scheduleId, requestedCount);
 
@@ -211,22 +211,23 @@ public class LotteryService {
         }
 
         SeatZone selectedZone = availableZones.get(0);
-        return findContiguousOrRandomSeats(selectedZone.getId(), requestedCount);
+        return findContiguousOrRandomSeats(selectedZone.getId(), requestedCount, preference);
     }
 
     /**
      * 구역 내에서 연속된 좌석(연석)을 우선적으로 찾고, 없으면 랜덤으로 배정한다.
+     * 어르신 선호도(preference)에 따라 가장 적합한 위치를 우선 배정한다.
      */
-    private List<Seat> findContiguousOrRandomSeats(Long zoneId, int requestedCount) {
+    private List<Seat> findContiguousOrRandomSeats(Long zoneId, int requestedCount, SeatPreference preference) {
         List<Seat> availableSeats = seatRepository.findBySeatZoneIdAndStatus(zoneId, SeatStatus.AVAILABLE);
         if (availableSeats.size() < requestedCount) return List.of();
 
+        // --- 1. 단일 좌석 배정 로직 (requestedCount == 1) ---
         if (requestedCount == 1) {
-            List<Seat> shuffled = new ArrayList<>(availableSeats);
-            Collections.shuffle(shuffled, new SecureRandom());
-            return shuffled.subList(0, 1);
+            return List.of(selectBestSingleSeat(availableSeats, preference));
         }
 
+        // --- 2. 다수 좌석 배정 로직 (requestedCount > 1, 연석 우선) ---
         // 행(row)별로 좌석 그룹화
         java.util.Map<String, List<Seat>> seatsByRow = availableSeats.stream()
                 .collect(java.util.stream.Collectors.groupingBy(Seat::getRowLabel));
@@ -265,14 +266,71 @@ public class LotteryService {
             }
         }
 
-        // 연석 블록이 존재하면 그 중 하나를 랜덤하게 선택
+        // 연석 블록이 존재하면 선호도에 따라 가장 적합한 블록 선택
         if (!contiguousBlocks.isEmpty()) {
-            return contiguousBlocks.get(new SecureRandom().nextInt(contiguousBlocks.size()));
+            return selectBestContiguousBlock(contiguousBlocks, preference);
         }
 
-        // 연석이 없다면 동일 구역 내에서 랜덤으로 흩어진 좌석 배정
-        List<Seat> shuffled = new ArrayList<>(availableSeats);
-        Collections.shuffle(shuffled, new SecureRandom());
-        return shuffled.subList(0, requestedCount);
+        // 연석이 없다면 동일 구역 내에서 선호도에 따라 최적의 흩어진 좌석들 배정
+        return selectBestScatteredSeats(availableSeats, requestedCount, preference);
+    }
+
+    /**
+     * 선호도에 따라 최적의 단일 좌석 하나를 선택한다.
+     */
+    private Seat selectBestSingleSeat(List<Seat> seats, SeatPreference preference) {
+        List<Seat> candidates = new ArrayList<>(seats);
+        
+        switch (preference) {
+            case EYESIGHT -> // 앞좌석 우선: rowNum 오름차순, colNum 오름차순
+                candidates.sort(java.util.Comparator.comparing(Seat::getRowNum)
+                        .thenComparing(Seat::getColNum));
+            case LEG -> // 통로석 우선: isAisle 내림차순, rowNum 오름차순
+                candidates.sort(java.util.Comparator.comparing(Seat::getIsAisle).reversed()
+                        .thenComparing(Seat::getRowNum));
+            case HEARING -> // 뒷좌석 우선: rowNum 내림차순, colNum 오름차순
+                candidates.sort(java.util.Comparator.comparing(Seat::getRowNum).reversed()
+                        .thenComparing(Seat::getColNum));
+            default -> Collections.shuffle(candidates, new SecureRandom());
+        }
+        
+        return candidates.get(0);
+    }
+
+    /**
+     * 선호도에 따라 최적의 연석 블록을 선택한다.
+     */
+    private List<Seat> selectBestContiguousBlock(List<List<Seat>> blocks, SeatPreference preference) {
+        List<List<Seat>> candidates = new ArrayList<>(blocks);
+        
+        switch (preference) {
+            case EYESIGHT -> // 앞쪽 블록 우선: 블록의 평균 rowNum 오름차순
+                candidates.sort(java.util.Comparator.comparing(b -> b.get(0).getRowNum()));
+            case LEG -> // 통로 포함 블록 우선: 통로석 포함 여부 내림차순
+                candidates.sort(java.util.Comparator.comparing((List<Seat> b) -> 
+                    b.stream().anyMatch(Seat::getIsAisle)).reversed()
+                    .thenComparing(b -> b.get(0).getRowNum()));
+            case HEARING -> // 뒤쪽 블록 우선: 블록의 평균 rowNum 내림차순
+                candidates.sort(java.util.Comparator.comparing((List<Seat> b) -> b.get(0).getRowNum()).reversed());
+            default -> Collections.shuffle(candidates, new SecureRandom());
+        }
+        
+        return candidates.get(0);
+    }
+
+    /**
+     * 연석이 없을 경우, 선호도에 따라 최적의 흩어진 좌석들을 선택한다.
+     */
+    private List<Seat> selectBestScatteredSeats(List<Seat> seats, int requestedCount, SeatPreference preference) {
+        List<Seat> candidates = new ArrayList<>(seats);
+        
+        switch (preference) {
+            case EYESIGHT -> candidates.sort(java.util.Comparator.comparing(Seat::getRowNum));
+            case LEG -> candidates.sort(java.util.Comparator.comparing(Seat::getIsAisle).reversed());
+            case HEARING -> candidates.sort(java.util.Comparator.comparing(Seat::getRowNum).reversed());
+            default -> Collections.shuffle(candidates, new SecureRandom());
+        }
+        
+        return candidates.subList(0, requestedCount);
     }
 }

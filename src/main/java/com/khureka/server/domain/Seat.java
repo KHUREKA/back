@@ -44,12 +44,25 @@ public class Seat extends BaseEntity {
     @Column(nullable = false, length = 30)
     private SeatStatus status;
 
+    @Column(nullable = false)
+    private Integer rowNum; // 행 번호 (낮을수록 앞쪽)
+
+    @Column(nullable = false)
+    private Integer colNum; // 열 번호
+
+    @Column(nullable = false)
+    private Boolean isAisle; // 통로 여부
+
     @Builder
-    public Seat(SeatZone seatZone, String rowLabel, String seatNumber, SeatStatus status) {
+    public Seat(SeatZone seatZone, String rowLabel, String seatNumber, SeatStatus status,
+                Integer rowNum, Integer colNum, Boolean isAisle) {
         this.seatZone = seatZone;
         this.rowLabel = rowLabel;
         this.seatNumber = seatNumber;
         this.status = (status != null) ? status : SeatStatus.AVAILABLE;
+        this.rowNum = (rowNum != null) ? rowNum : 0;
+        this.colNum = (colNum != null) ? colNum : 0;
+        this.isAisle = (isAisle != null) ? isAisle : false;
     }
 
     /**

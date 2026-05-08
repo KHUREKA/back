@@ -89,6 +89,11 @@ public class TicketApplication extends BaseEntity {
     @Column(nullable = false)
     private Boolean autoPaymentAgreed;
 
+    // ─── 신체 맞춤형 좌석 선호도 ───
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
+    private SeatPreference seatPreference;
+
     // ─── Mock 결제 상태 ───
     @Enumerated(EnumType.STRING)
     @Column(length = 30)
@@ -115,7 +120,8 @@ public class TicketApplication extends BaseEntity {
                               SeatZone priority1SeatZone,
                               SeatZone priority2SeatZone,
                               SeatZone priority3SeatZone,
-                              Boolean autoPaymentAgreed) {
+                              Boolean autoPaymentAgreed,
+                              SeatPreference seatPreference) {
         this.user = user;
         this.schedule = schedule;
         this.requestedSeatCount = (requestedSeatCount != null) ? requestedSeatCount : 1;
@@ -125,6 +131,7 @@ public class TicketApplication extends BaseEntity {
         this.priority3SeatZone = priority3SeatZone;
         this.status = ApplicationStatus.APPLIED;
         this.autoPaymentAgreed = (autoPaymentAgreed != null) ? autoPaymentAgreed : false;
+        this.seatPreference = (seatPreference != null) ? seatPreference : SeatPreference.NONE;
         this.mockPaymentStatus = PaymentStatus.READY;
         this.appliedAt = LocalDateTime.now();
     }

@@ -36,4 +36,5 @@ public class ApplicationRequest {
     private Long priority2SeatZoneId;
     private Long priority3SeatZoneId;
     private Boolean autoPaymentAgreed;
+    private com.khureka.server.domain.SeatPreference seatPreference;
 }
