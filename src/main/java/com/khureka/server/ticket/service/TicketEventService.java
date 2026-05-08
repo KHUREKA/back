@@ -68,6 +68,7 @@ public class TicketEventService {
         List<TicketEvent> allEvents = ticketEventRepository.findAll();
 
         List<EventSummaryResponse> summaries = allEvents.stream()
+                .filter(this::hasOpenSchedule)
                 .map(event -> toSummary(event, userLat, userLon))
                 .toList();
 
@@ -152,9 +153,9 @@ public class TicketEventService {
             events = ticketEventRepository.findAll();
         }
 
-        // 3. 날짜 범위로 2차 필터링 및 DTO 변환
+        // 3. 날짜 범위로 2차 필터링 및 DTO 변환 (응모 가능한 일정만)
         return events.stream()
-                .filter(event -> hasScheduleInRange(event.getId(), finalStart, finalEnd))
+                .filter(event -> hasScheduleInRangeAndOpen(event.getId(), finalStart, finalEnd))
                 .map(event -> toSummary(event, null, null))
                 .toList();
     }
@@ -207,11 +208,23 @@ public class TicketEventService {
                 .build();
     }
 
-    private boolean hasScheduleInRange(Long eventId, LocalDateTime start, LocalDateTime end) {
+    private boolean hasScheduleInRangeAndOpen(Long eventId, LocalDateTime start, LocalDateTime end) {
         List<EventSchedule> schedules = eventScheduleRepository.findByEventIdOrderByStartTimeAsc(eventId);
+        LocalDateTime now = LocalDateTime.now();
         return schedules.stream().anyMatch(s ->
                 (s.getStartTime().isAfter(start) || s.getStartTime().isEqual(start)) &&
-                (s.getStartTime().isBefore(end) || s.getStartTime().isEqual(end))
+                (s.getStartTime().isBefore(end) || s.getStartTime().isEqual(end)) &&
+                s.getStatus() == com.khureka.server.domain.ScheduleStatus.APPLICATION_OPEN &&
+                now.isBefore(s.getApplicationCloseAt())
+        );
+    }
+
+    private boolean hasOpenSchedule(TicketEvent event) {
+        List<EventSchedule> schedules = eventScheduleRepository.findByEventIdOrderByStartTimeAsc(event.getId());
+        LocalDateTime now = LocalDateTime.now();
+        return schedules.stream().anyMatch(s ->
+                s.getStatus() == com.khureka.server.domain.ScheduleStatus.APPLICATION_OPEN &&
+                now.isBefore(s.getApplicationCloseAt())
         );
     }
 

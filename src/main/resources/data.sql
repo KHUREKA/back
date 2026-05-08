@@ -100,6 +100,18 @@ INSERT INTO seat_zones (schedule_id, name, price, created_at, updated_at) VALUES
 (6, '골드석', 55000, NOW(), NOW()),
 (6, '일반석', 33000, NOW(), NOW());
 
+-- 연극 햄릿 (schedule_id=7): 3개 구역
+INSERT INTO seat_zones (schedule_id, name, price, created_at, updated_at) VALUES
+(7, 'VIP석', 150000, NOW(), NOW()),
+(7, 'R석', 120000, NOW(), NOW()),
+(7, 'S석', 90000, NOW(), NOW());
+
+-- 뮤지컬 시카고 (schedule_id=8): 3개 구역
+INSERT INTO seat_zones (schedule_id, name, price, created_at, updated_at) VALUES
+(8, 'VIP석', 160000, NOW(), NOW()),
+(8, 'R석', 130000, NOW(), NOW()),
+(8, 'S석', 100000, NOW(), NOW());
+
 -- 5. seats (구역별 실제 좌석)
 -- 좌석 생성 프로시저 대신, 핵심 구역만 좌석을 넣습니다.
 
