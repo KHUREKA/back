@@ -19,10 +19,8 @@ jwt:
   secret: ${JWT_SECRET}
   access-token-validity-in-seconds: 3600
 
-<<<<<<< HEAD
 ncp:
   client-id: hj97d8k6yx
-=======
 cloud:
   aws:
     credentials:
@@ -34,4 +32,3 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
->>>>>>> 7b8f0850fcd8ba033a1eb95a174d604e94ba79a3
