@@ -3,54 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Map</title>
+    <title>지도</title>
 
     <style>
-        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
-        #map { width: 100%; height: 100%; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
     </style>
 
-    <script th:inline="javascript">
-        function initMap() {
-            var destName = /*[[${destName}]]*/ '목적지';
-            var lat = /*[[${lat}]]*/ 37.5666102;
-            var lng = /*[[${lng}]]*/ 126.9783881;
-
-            var targetPosition = new naver.maps.LatLng(lat, lng);
-
-            var map = new naver.maps.Map('map', {
-                center: targetPosition,
-                zoom: 16,
-                mapTypeControl: false,
-                scaleControl: false,
-                logoControlOptions: { position: naver.maps.Position.BOTTOM_LEFT }
-            });
-
-            var marker = new naver.maps.Marker({
-                position: targetPosition,
-                map: map
-            });
-
-            var infoWindow = new naver.maps.InfoWindow({
-                content: '<div style="padding:10px 15px; font-weight:bold; font-size:16px; color:#333; text-align:center; border-radius:8px;">' + destName + '</div>',
-                borderWidth: 1,
-                borderColor: '#00c73c',
-                backgroundColor: '#ffffff'
-            });
-
-            infoWindow.open(map, marker);
-        }
-
+    <script>
         window.navermap_authFailure = function () {
             console.error("NAVER Maps 인증 실패");
+            alert("네이버 지도 인증 실패: NCP Web 서비스 URL과 Client ID를 확인하세요.");
         };
     </script>
     <script
             type="text/javascript"
-            th:src="|https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${ncpKeyId}&callback=initMap|">
+            th:src="|https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${ncpKeyId}|">
     </script>
 </head>
 <body>
     <div id="map"></div>
+
+    <script th:inline="javascript">
+        const destName = /*[[${destName}]]*/ '목적지';
+        const lat = /*[[${lat}]]*/ 37.5666103;
+        const lng = /*[[${lng}]]*/ 126.9783882;
+
+        window.onload = function () {
+            if (typeof naver === "undefined") {
+                console.error("naver 객체가 없습니다. Maps API 로드 또는 인증에 실패했습니다.");
+                return;
+            }
+
+            const targetPosition = new naver.maps.LatLng(lat, lng);
+            const map = new naver.maps.Map("map", {
+                center: targetPosition,
+                zoom: 15
+            });
+
+            const marker = new naver.maps.Marker({
+                position: targetPosition,
+                map: map
+            });
+
+            const infoWindow = new naver.maps.InfoWindow({
+                content: '<div style="padding:10px 15px; font-weight:bold; font-size:16px; color:#333; text-align:center; border-radius:8px;">' + destName + '</div>'
+            });
+            infoWindow.open(map, marker);
+        };
+    </script>
 </body>
 </html>

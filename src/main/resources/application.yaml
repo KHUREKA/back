@@ -21,7 +21,7 @@ jwt:
 
 ncp:
   maps:
-    client-id: hj97d8k6yx
+    client-id: ${NCP_MAPS_CLIENT_ID}
 
 cloud:
   aws:
