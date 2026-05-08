@@ -25,6 +25,7 @@ public class ApplicationResponse {
     private String applicationCode;
 
     // 이벤트 정보
+    private Long eventId;
     private String eventTitle;
     private String venueName;
     private LocalDateTime startTime;
@@ -49,6 +50,7 @@ public class ApplicationResponse {
                 .lotteryResultAt(app.getLotteryResultAt())
                 .paidAt(app.getPaidAt())
                 .applicationCode(app.getApplicationCode())
+                .eventId(app.getSchedule().getEvent().getId())
                 .eventTitle(app.getSchedule().getEvent().getTitle())
                 .venueName(app.getSchedule().getEvent().getVenueName())
                 .startTime(app.getSchedule().getStartTime())

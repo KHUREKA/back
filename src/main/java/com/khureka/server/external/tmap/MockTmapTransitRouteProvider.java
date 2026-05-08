@@ -75,7 +75,7 @@ public class MockTmapTransitRouteProvider {
         );
 
         return build(event, userLat, userLng,
-                181, 34300, 2,
+                181, 34300, 3,
                 "사색의광장", "대구삼성라이온즈파크",
                 "수성구민운동장역", null,
                 segments);
@@ -93,7 +93,7 @@ public class MockTmapTransitRouteProvider {
         );
 
         return build(event, userLat, userLng,
-                41, 1450, 0,
+                92, 3500, 1,
                 "사색의 광장", "블루스퀘어 신한카드홀",
                 "한강진역", "2",
                 segments);
@@ -107,12 +107,12 @@ public class MockTmapTransitRouteProvider {
         List<TransitSegmentResponse> segments = List.of(
                 bus(1, "사색의광장", "살구골현대아파트", 8, "버스" ,"5100"),
                 subway(2, "영통역", "원인재역", 69, "수인분당선", "#003DA5"),
-                bus(1, "사색의광장", "살구골현대아파트", 8, "버스" ,"5100"),
-                walk(3, "국제업무지구역", "인천 송도컨벤시아", 10)
+                bus(3, "사색의광장", "살구골현대아파트", 8, "버스" ,"5100"),
+                walk(4, "국제업무지구역", "인천 송도컨벤시아", 10)
         );
 
         return build(event, userLat, userLng,
-                134, 3800, 0,
+                134, 3800, 2,
                 "사색의광장", "인천 송도컨벤시아",
                 "국제업무지구역", null,
                 segments);
@@ -125,7 +125,7 @@ public class MockTmapTransitRouteProvider {
     private TransitRouteResponse myeongdongTheater(TicketEvent event, double userLat, double userLng) {
         List<TransitSegmentResponse> segments = List.of(
                 bus(1, "사색의광장", "사당역(중)", 45, "버스", "5100"),
-                subway(2, "사당역", "명동역", 14, "수도권 4호선", "#00A2D6"),
+                subway(2, "사당역", "명동역", 14, "4호선", "#00A2D6"),
                 walk(3, "명동역 6번 출구", "명동예술극장", 3)
         );
 
@@ -159,9 +159,9 @@ public class MockTmapTransitRouteProvider {
     // ──────────────────────────────────────────────────────────
     private TransitRouteResponse generic(TicketEvent event, double userLat, double userLng) {
         List<TransitSegmentResponse> segments = List.of(
-                walk(1, "출발지", "인근 정류장", 5),
-                bus(2, "인근 정류장", "환승 정류장", 35, "버스", "5100"),
-                subway(3, "환승역", event.getVenueName() + " 인근역", 25, "9호선", "#BDB092"),
+                bus(1, "사색의광장", "강남역(중)", 55,"버스",  "5100"),
+                subway(2, "강남역", "신도림역", 12, "수도권 2호선", "#009246"),
+                subway(3, "신도림역", event.getVenueName() + " 인근역", 25, "9호선", "#BDB092"),
                 walk(4, event.getVenueName() + " 인근역", event.getVenueName(), 7)
         );
 

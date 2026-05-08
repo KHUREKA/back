@@ -23,6 +23,7 @@ public class TicketResponse {
     private LocalDateTime paidAt;
 
     // 이벤트 정보
+    private Long eventId;
     private String eventTitle;
     private String venueName;
     private String venueAddress;
@@ -59,6 +60,7 @@ public class TicketResponse {
                 .applicationCode(app.getApplicationCode())
                 .status(app.getStatus().name())
                 .paidAt(app.getPaidAt())
+                .eventId(app.getSchedule().getEvent().getId())
                 .eventTitle(app.getSchedule().getEvent().getTitle())
                 .venueName(app.getSchedule().getEvent().getVenueName())
                 .venueAddress(app.getSchedule().getEvent().getVenueAddress())
