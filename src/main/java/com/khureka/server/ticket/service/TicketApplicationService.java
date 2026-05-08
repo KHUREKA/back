@@ -112,7 +112,7 @@ public class TicketApplicationService {
                 .priority2SeatZone(priority2)
                 .priority3SeatZone(priority3)
                 .autoPaymentAgreed(request.getAutoPaymentAgreed())
-                .seatPreference(request.getSeatPreference() != null ? request.getSeatPreference() : user.getSeatPreference())
+                .seatPreference(user.getSeatPreference())
                 .build();
 
         applicationRepository.save(application);

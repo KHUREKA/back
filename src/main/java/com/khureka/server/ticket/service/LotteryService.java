@@ -89,7 +89,17 @@ public class LotteryService {
                 }
             }
 
-            // 배정 불가 → 미당첨
+            // [최후의 보루: 100% 당첨 보장 (시연용 안전장치)]
+            // 만약 구역 단위 조회에서 좌석이 부족해 실패했더라도(예: 각 구역에 1자리씩 흩어져 있는 경우), 
+            // 경기장 전체에서 남은 좌석을 모두 긁어와 선호도에 맞춰 흩어진 좌석이라도 강제 배정합니다.
+            if (selectedSeats.size() < requestedCount) {
+                List<Seat> allAvailableSeats = seatRepository.findAllAvailableSeatsByScheduleId(scheduleId);
+                if (allAvailableSeats.size() >= requestedCount) {
+                    selectedSeats = selectBestScatteredSeats(allAvailableSeats, requestedCount, application.getSeatPreference());
+                }
+            }
+
+            // 배정 불가 → 미당첨 (물리적으로 경기장에 남은 좌석이 아예 없는 경우만 실패)
             if (selectedSeats.size() < requestedCount) {
                 application.markLose();
                 losersCount++;

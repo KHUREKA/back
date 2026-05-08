@@ -53,4 +53,15 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
      * 특정 구역의 전체 좌석 조회.
      */
     List<Seat> findBySeatZoneId(Long seatZoneId);
+
+    /**
+     * 특정 일정 전체에서 사용 가능한 모든 좌석 조회 (최후의 보루 흩어진 좌석 탐색용).
+     */
+    @Query("""
+        SELECT s FROM Seat s
+        JOIN s.seatZone z
+        WHERE z.schedule.id = :scheduleId
+          AND s.status = com.khureka.server.domain.SeatStatus.AVAILABLE
+    """)
+    List<Seat> findAllAvailableSeatsByScheduleId(@Param("scheduleId") Long scheduleId);
 }
