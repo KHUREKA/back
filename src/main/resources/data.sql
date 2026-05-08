@@ -32,7 +32,15 @@ INSERT INTO ticket_events (title, category, keyword, venue_name, venue_address, 
  'https://khuthon-bucket.s3.ap-northeast-2.amazonaws.com/events/8c490851-d0f4-46df-b6c0-2efd90622786_%ED%96%84%EB%A6%BF.png', NOW(), NOW()),
 ('뮤지컬 시카고', 'MUSICAL', '시카고 뮤지컬 재즈 브로드웨이', '디큐브 아트센터', '서울특별시 구로구 경인로 662', 37.5088, 126.8890,
  '올 타임 베스트셀러 뮤지컬 시카고. 화려한 무대와 재즈의 향연.',
- 'https://khuthon-bucket.s3.ap-northeast-2.amazonaws.com/events/72223f87-15f5-40dd-bf2c-7e754b476148_%EC%8B%9C%EC%B9%B4%EA%B3%A0.png', NOW(), NOW());
+ 'https://khuthon-bucket.s3.ap-northeast-2.amazonaws.com/events/72223f87-15f5-40dd-bf2c-7e754b476148_%EC%8B%9C%EC%B9%B4%EA%B3%A0.png', NOW(), NOW()),
+
+('조용필 2026 콘서트 [바람의 노래]', 'CONCERT', '조용필 콘서트 가왕 헬로', '서울 올림픽주경기장', '서울특별시 송파구 올림픽로 25', 37.5121, 127.0719,
+ '가왕 조용필의 데뷔 55주년 기념 콘서트. 전설의 무대를 직접 확인하세요.',
+ 'https://khuthon-bucket.s3.ap-northeast-2.amazonaws.com/events/0e43170a-9303-4ca9-88ad-1cdb1172dadf_yongpill.png', NOW(), NOW()),
+
+('대한민국 vs 브라질 축구 국가대표 친선경기', 'SOCCER', '축구 국대 손흥민 브라질 A매치', '서울월드컵경기장', '서울특별시 마포구 성산동 515', 37.5683, 126.8972,
+ '대한민국 축구 국가대표팀의 자존심을 건 한판 승부! 세계 최강 브라질과의 대결.',
+ 'https://khuthon-bucket.s3.ap-northeast-2.amazonaws.com/events/3ee76ee7-beac-4dc3-9cf9-154eda2f22c5_soccer.png', NOW(), NOW());
 
 -- 3. event_schedules (이벤트별 일정)
 -- 임영웅 콘서트: 2일 공연
@@ -57,7 +65,13 @@ INSERT INTO event_schedules (event_id, start_time, end_time, application_open_at
 (5, '2026-07-15 19:30:00', '2026-07-15 22:00:00', '2026-06-01 00:00:00', '2026-07-10 23:59:59', '2026-07-11 12:00:00', 'APPLICATION_OPEN', NOW(), NOW()),
 
 -- 뮤지컬 시카고: 1일 공연
-(6, '2026-08-01 14:00:00', '2026-08-01 17:00:00', '2026-07-01 00:00:00', '2026-07-25 23:59:59', '2026-07-26 12:00:00', 'APPLICATION_OPEN', NOW(), NOW());
+(6, '2026-08-01 14:00:00', '2026-08-01 17:00:00', '2026-07-01 00:00:00', '2026-07-25 23:59:59', '2026-07-26 12:00:00', 'APPLICATION_OPEN', NOW(), NOW()),
+
+-- 조용필 콘서트: 1일 공연
+(7, '2026-08-15 19:00:00', '2026-08-15 22:00:00', '2026-07-01 00:00:00', '2026-08-01 23:59:59', '2026-08-02 12:00:00', 'APPLICATION_OPEN', NOW(), NOW()),
+
+-- 축구 친선경기: 1경기
+(8, '2026-09-05 20:00:00', '2026-09-05 22:00:00', '2026-08-01 00:00:00', '2026-08-25 23:59:59', '2026-08-26 12:00:00', 'APPLICATION_OPEN', NOW(), NOW());
 
 -- 4. seat_zones (일정별 좌석 구역)
 -- 임영웅 콘서트 Day1 (schedule_id=1): 4개 구역
@@ -110,7 +124,18 @@ INSERT INTO seat_zones (schedule_id, name, price, created_at, updated_at) VALUES
 INSERT INTO seat_zones (schedule_id, name, price, created_at, updated_at) VALUES
 (8, 'VIP석', 160000, NOW(), NOW()),
 (8, 'R석', 130000, NOW(), NOW()),
-(8, 'S석', 100000, NOW(), NOW());
+(8, 'S석', 100000, NOW(), NOW()),
+
+-- 조용필 콘서트 (schedule_id=9): 3개 구역
+(9, 'VIP석', 250000, NOW(), NOW()),
+(9, 'R석', 180000, NOW(), NOW()),
+(9, 'S석', 140000, NOW(), NOW()),
+
+-- 축구 친선경기 (schedule_id=10): 4개 구역
+(10, '프리미엄석', 150000, NOW(), NOW()),
+(10, '1등석', 100000, NOW(), NOW()),
+(10, '2등석', 70000, NOW(), NOW()),
+(10, '레드존', 50000, NOW(), NOW());
 
 -- 5. seats (구역별 실제 좌석)
 -- 좌석 생성 프로시저 대신, 핵심 구역만 좌석을 넣습니다.
@@ -291,4 +316,14 @@ INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_nu
 -- 일반석 (zone_id=22): 2열 x 5좌석 = 10석
 INSERT INTO seats (seat_zone_id, row_label, seat_number, status, row_num, col_num, is_aisle, created_at, updated_at) VALUES
 (22,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(22,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(22,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(22,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(22,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
-(22,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(22,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(22,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(22,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(22,'B','5','AVAILABLE',2,5,true,NOW(),NOW());
+(22,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(22,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(22,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(22,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(22, 'B','5','AVAILABLE',2,5,true,NOW(),NOW()),
+
+-- == 조용필 콘서트 ==
+-- VIP석 (zone_id=29): 2열 x 5좌석 = 10석
+(29,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(29,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(29,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(29,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(29,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
+(29,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(29,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(29,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(29,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(29,'B','5','AVAILABLE',2,5,true,NOW(),NOW()),
+
+-- == 축구 친선경기 ==
+-- 레드존 (zone_id=35): 2열 x 5좌석 = 10석
+(35,'A','1','AVAILABLE',1,1,true,NOW(),NOW()),(35,'A','2','AVAILABLE',1,2,false,NOW(),NOW()),(35,'A','3','AVAILABLE',1,3,false,NOW(),NOW()),(35,'A','4','AVAILABLE',1,4,false,NOW(),NOW()),(35,'A','5','AVAILABLE',1,5,true,NOW(),NOW()),
+(35,'B','1','AVAILABLE',2,1,true,NOW(),NOW()),(35,'B','2','AVAILABLE',2,2,false,NOW(),NOW()),(35,'B','3','AVAILABLE',2,3,false,NOW(),NOW()),(35,'B','4','AVAILABLE',2,4,false,NOW(),NOW()),(35,'B','5','AVAILABLE',2,5,true,NOW(),NOW());
