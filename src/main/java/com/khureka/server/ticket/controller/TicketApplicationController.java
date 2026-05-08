@@ -52,5 +52,15 @@ public class TicketApplicationController {
 
         return ApiResponse.success(applicationService.getMyTickets(userDetails.getUserId()));
     }
+
+    @Operation(summary = "응모 취소", description = "추첨 전 응모 내역 취소")
+    @DeleteMapping("/{applicationId}")
+    public ApiResponse<Void> cancelApplication(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @PathVariable Long applicationId) {
+
+        applicationService.cancelApplication(userDetails.getUserId(), applicationId);
+        return ApiResponse.success(null);
+    }
 }
 
