@@ -71,7 +71,9 @@ public enum ErrorCode {
 
     DUPLICATE_APPLICATION("TICKET-409-001", 409, "이미 해당 일정에 응모하셨습니다."),
 
-    LOTTERY_ALREADY_DONE("TICKET-400-006", 400, "이미 추첨이 완료된 일정입니다.");
+    LOTTERY_ALREADY_DONE("TICKET-400-006", 400, "이미 추첨이 완료된 일정입니다."),
+    ALREADY_CANCELLED("TICKET-400-007", 400, "이미 취소된 응모 내역입니다."),
+    CANNOT_CANCEL_AFTER_LOTTERY("TICKET-400-008", 400, "추첨이 진행된 이후에는 취소할 수 없습니다.");
 
     private final String code;
     private final int httpStatus;

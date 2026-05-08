@@ -164,4 +164,49 @@ public class TicketApplicationService {
                 })
                 .toList();
     }
+
+    // ──────────────────────────────────────────
+    // 응모 취소
+    // ──────────────────────────────────────────
+
+    /**
+     * 응모를 취소한다.
+     *
+     * 검증 사항:
+     * 1. 응모 내역 존재 여부
+     * 2. 본인의 응모 내역인지 (소유권)
+     * 3. 이미 취소되었는지
+     * 4. 추첨 전 상태(APPLIED)인지 (당첨/미당첨 이후 취소 불가)
+     * 5. 응모 기간 내인지 (응모 마감 후 취소 불가)
+     */
+    @Transactional
+    public void cancelApplication(Long userId, Long applicationId) {
+        TicketApplication application = applicationRepository.findById(applicationId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.APPLICATION_NOT_FOUND));
+
+        // 검증 1: 소유권
+        if (!application.getUser().getId().equals(userId)) {
+            throw new BusinessException(ErrorCode.FORBIDDEN);
+        }
+
+        // 검증 2: 이미 취소됨
+        if (application.getStatus() == ApplicationStatus.CANCELLED) {
+            throw new BusinessException(ErrorCode.ALREADY_CANCELLED);
+        }
+
+        // 검증 3: 추첨 전 상태인지
+        if (application.getStatus() != ApplicationStatus.APPLIED) {
+            throw new BusinessException(ErrorCode.CANNOT_CANCEL_AFTER_LOTTERY);
+        }
+
+        // 검증 4: 응모 기간 내인지
+        EventSchedule schedule = application.getSchedule();
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isAfter(schedule.getApplicationCloseAt())) {
+            throw new BusinessException(ErrorCode.APPLICATION_PERIOD_CLOSED);
+        }
+
+        // 상태 변경
+        application.cancel();
+    }
 }

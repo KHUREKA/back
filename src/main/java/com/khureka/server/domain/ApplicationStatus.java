@@ -10,5 +10,6 @@ package com.khureka.server.domain;
 public enum ApplicationStatus {
     APPLIED,
     LOSE,
-    TICKET_ISSUED
+    TICKET_ISSUED,
+    CANCELLED
 }

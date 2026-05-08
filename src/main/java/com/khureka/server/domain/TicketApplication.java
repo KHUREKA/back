@@ -152,4 +152,12 @@ public class TicketApplication extends BaseEntity {
         this.lotteryResultAt = LocalDateTime.now();
         this.applicationCode = code;
     }
+
+    /**
+     * 응모 취소 처리.
+     */
+    public void cancel() {
+        this.status = ApplicationStatus.CANCELLED;
+        this.mockPaymentStatus = null;
+    }
 }
