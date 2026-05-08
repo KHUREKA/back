@@ -21,19 +21,12 @@ public class TicketRouteController {
 
     private final TicketRouteService ticketRouteService;
 
-    @Operation(
-            summary = "카카오맵 길찾기 링크 생성",
-            description = "사용자의 현재 위치와 공연장 좌표를 이용해 카카오맵 길찾기 링크를 생성합니다. 출발지는 userLat/userLng이며, 목적지는 TicketEvent의 destinationLatitude/destinationLongitude입니다."
-    )
+    @Operation(summary = "카카오맵 길찾기 링크 생성", description = "사용자의 현재 위치와 공연장 좌표를 이용해 카카오맵 길찾기 링크를 생성합니다. 출발지는 userLat/userLng이며, 목적지는 TicketEvent의 destinationLatitude/destinationLongitude입니다.")
     @GetMapping("/{eventId}/kakao-route")
     public ApiResponse<KakaoRouteResponse> getKakaoRoute(
-            @Parameter(description = "공연/경기 ID", required = true)
-            @PathVariable Long eventId,
-            @Parameter(description = "사용자 현재 위도", required = true)
-            @RequestParam double userLat,
-            @Parameter(description = "사용자 현재 경도", required = true)
-            @RequestParam double userLng
-    ) {
+            @Parameter(description = "공연/경기 ID", required = true) @PathVariable Long eventId,
+            @Parameter(description = "사용자 현재 위도", required = true) @RequestParam double userLat,
+            @Parameter(description = "사용자 현재 경도", required = true) @RequestParam double userLng) {
         return ApiResponse.success(ticketRouteService.getKakaoRoute(eventId, userLat, userLng));
     }
 }

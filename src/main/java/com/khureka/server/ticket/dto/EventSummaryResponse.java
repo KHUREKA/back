@@ -10,9 +10,25 @@ public class EventSummaryResponse {
     private Long id;
     private String title;
     private String venueName;
-    private String dateRange; // 예: "2026.05.16 - 06.13"
+    private String dateRange;
+    private String representativeDate;
     private EventCategory category;
     private String thumbnailUrl;
-    private Double distance; // 단위: km
-    private String distanceDisplay; // 예: "0.8km"
+    private Double distance;
+    private String distanceDisplay;
+    private Integer minPrice;
+    private Integer maxPrice;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EventSummaryResponse that = (EventSummaryResponse) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

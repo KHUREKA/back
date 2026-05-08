@@ -28,7 +28,7 @@ public class TicketApplicationController {
 
     private final TicketApplicationService applicationService;
 
-    @Operation(summary = "응모하기", description = "좌석 개수 + 구역 선택(수동/자동) 후 응모")
+    @Operation(summary = "[STEP 3] 응모하기", description = "좌석 개수 + 구역 선택(수동/자동) 후 응모 완료")
     @PostMapping
     public ApiResponse<ApplicationResponse> apply(
             @AuthenticationPrincipal CustomUserDetails userDetails,
@@ -37,7 +37,7 @@ public class TicketApplicationController {
         return ApiResponse.success(applicationService.apply(userDetails.getUserId(), request));
     }
 
-    @Operation(summary = "내 응모 내역 조회", description = "마이페이지 — 전체 응모 내역")
+    @Operation(summary = "내 응모 내역 조회", description = "마이페이지 — 응모 현황 및 추첨 결과 확인")
     @GetMapping("/me")
     public ApiResponse<List<ApplicationResponse>> getMyApplications(
             @AuthenticationPrincipal CustomUserDetails userDetails) {
@@ -45,7 +45,7 @@ public class TicketApplicationController {
         return ApiResponse.success(applicationService.getMyApplications(userDetails.getUserId()));
     }
 
-    @Operation(summary = "내 티켓 보관함", description = "당첨 + 발급 완료된 티켓 목록")
+    @Operation(summary = "내 티켓 보관함", description = "당첨 및 결제가 완료된 최종 티켓 목록")
     @GetMapping("/me/tickets")
     public ApiResponse<List<TicketResponse>> getMyTickets(
             @AuthenticationPrincipal CustomUserDetails userDetails) {
@@ -63,4 +63,3 @@ public class TicketApplicationController {
         return ApiResponse.success(null);
     }
 }
-
