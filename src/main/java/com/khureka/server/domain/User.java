@@ -29,11 +29,15 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    @Column(length = 30)
+    private String phone;
+
     @Builder
-    public User(String email, String password, String username, Role role) {
+    public User(String email, String password, String username, Role role, String phone) {
         this.email = email;
         this.password = password;
         this.username = username;
         this.role = role;
+        this.phone = phone;
     }
 }
