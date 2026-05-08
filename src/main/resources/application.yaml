@@ -36,6 +36,6 @@ cloud:
       auto: false
 
 tmap:
-  enabled: ${TMAP_ENABLED:true}
+  enabled: ${TMAP_ENABLED:false}
   base-url: https://apis.openapi.sk.com
   api-key: ${TMAP_API_KEY:}

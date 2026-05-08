@@ -26,7 +26,8 @@ public class MapController {
                 .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
 
         model.addAttribute("eventId", ticketEventId);
-        model.addAttribute("destName", event.getTitle());
+        model.addAttribute("venueName", event.getVenueName());
+        model.addAttribute("eventTitle", event.getTitle());
         model.addAttribute("lat", event.getDestinationLatitude());
         model.addAttribute("lng", event.getDestinationLongitude());
         model.addAttribute("ncpKeyId", ncpMapsClientId == null ? "" : ncpMapsClientId.trim());

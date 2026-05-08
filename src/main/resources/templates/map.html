@@ -34,7 +34,8 @@
     <div id="map"></div>
 
     <script th:inline="javascript">
-        const destName = /*[[${destName}]]*/ '목적지';
+        const venueName  = /*[[${venueName}]]*/ '공연장';
+        const eventTitle = /*[[${eventTitle}]]*/ '공연명';
         const lat = /*[[${lat}]]*/ 37.5666103;
         const lng = /*[[${lng}]]*/ 126.9783882;
 
@@ -55,10 +56,27 @@
                 map: map
             });
 
-            const infoWindow = new naver.maps.InfoWindow({
-                content: '<div style="padding:10px 15px; font-weight:bold; font-size:16px; color:#333; text-align:center; border-radius:8px;">' + destName + '</div>'
+            // 기본 라벨: venueName (항상 표시)
+            const labelWindow = new naver.maps.InfoWindow({
+                content: '<div style="padding:5px 12px; font-weight:bold; font-size:14px; color:#333; background:#fff; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,.25); white-space:nowrap;">' + venueName + '</div>',
+                borderWidth: 0,
+                backgroundColor: 'transparent',
+                disableAnchor: true
             });
-            infoWindow.open(map, marker);
+            labelWindow.open(map, marker);
+
+            // 클릭 시 InfoWindow: eventTitle
+            const infoWindow = new naver.maps.InfoWindow({
+                content: '<div style="padding:10px 15px; font-size:15px; color:#333; text-align:center; border-radius:8px;">' + eventTitle + '</div>'
+            });
+
+            naver.maps.Event.addListener(marker, 'click', function () {
+                if (infoWindow.getMap()) {
+                    infoWindow.close();
+                } else {
+                    infoWindow.open(map, marker);
+                }
+            });
         };
     </script>
 </body>
