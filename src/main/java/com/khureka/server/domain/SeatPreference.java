@@ -16,4 +16,3 @@ public enum SeatPreference {
 
     private final String description;
 }
-    
