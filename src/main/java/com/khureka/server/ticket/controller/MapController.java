@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,18 +18,27 @@ public class MapController {
 
     private final TicketEventRepository ticketEventRepository;
 
-    @Value("${ncp.client-id}")
-    private String ncpClientId;
+    @Value("${ncp.maps.client-id:${ncp.client-id:}}")
+    private String ncpMapsClientId;
 
     @GetMapping("/map/{ticketEventId}")
     public String map(@PathVariable Long ticketEventId, Model model) {
+        return mapInternal(ticketEventId, model);
+    }
+
+    @GetMapping("/map")
+    public String mapByQuery(@RequestParam("id") Long ticketEventId, Model model) {
+        return mapInternal(ticketEventId, model);
+    }
+
+    private String mapInternal(Long ticketEventId, Model model) {
         TicketEvent event = ticketEventRepository.findById(ticketEventId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
 
         model.addAttribute("destName", event.getTitle());
         model.addAttribute("lat", event.getDestinationLatitude());
         model.addAttribute("lng", event.getDestinationLongitude());
-        model.addAttribute("clientId", ncpClientId);
+        model.addAttribute("ncpKeyId", ncpMapsClientId == null ? "" : ncpMapsClientId.trim());
 
         return "map";
     }

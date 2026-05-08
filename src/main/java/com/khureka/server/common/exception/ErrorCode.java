@@ -73,7 +73,9 @@ public enum ErrorCode {
 
     LOTTERY_ALREADY_DONE("TICKET-400-006", 400, "이미 추첨이 완료된 일정입니다."),
     ALREADY_CANCELLED("TICKET-400-007", 400, "이미 취소된 응모 내역입니다."),
-    CANNOT_CANCEL_AFTER_LOTTERY("TICKET-400-008", 400, "추첨이 진행된 이후에는 취소할 수 없습니다.");
+    CANNOT_CANCEL_AFTER_LOTTERY("TICKET-400-008", 400, "추첨이 진행된 이후에는 취소할 수 없습니다."),
+    INVALID_LOCATION_RANGE("TICKET-400-009", 400, "좌표 범위가 올바르지 않습니다."),
+    EVENT_DESTINATION_LOCATION_NOT_FOUND("TICKET-404-005", 404, "공연장 목적지 좌표를 찾을 수 없습니다.");
 
     private final String code;
     private final int httpStatus;
