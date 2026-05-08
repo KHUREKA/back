@@ -18,7 +18,7 @@ INSERT INTO ticket_events (title, category, keyword, venue_name, venue_address, 
 
 ('삼성 라이온즈 vs LG 트윈스', 'BASEBALL', '삼성 라이온즈 LG 트윈스 야구 프로야구', '대구삼성라이온즈파크', '대구광역시 수성구 야구전설로 1', 35.8419896, 128.6811467,
  '2026 KBO 리그 삼성 라이온즈 홈경기. 뜨거운 응원과 함께하세요!',
- 'https://khuthon-bucket.s3.ap-northeast-2.amazonaws.com/events/ebc52ea7-849c-469f-b553-7dcab3405807_LCK.png', NOW(), NOW()),
+ 'https://khuthon-bucket.s3.ap-northeast-2.amazonaws.com/events/1085f44d-c3b6-4dc1-bf64-075186c7d659_%EC%95%BC%EA%B5%AC.png', NOW(), NOW()),
 
 ('뮤지컬 오페라의 유령', 'MUSICAL', '오페라의유령 뮤지컬 브로드웨이', '블루스퀘어 신한카드홀', '서울특별시 용산구 이태원로 294', 37.5415021, 126.9936951,
  '세계적인 뮤지컬 오페라의 유령 내한공연. 감동의 무대를 만나보세요.',
@@ -26,7 +26,7 @@ INSERT INTO ticket_events (title, category, keyword, venue_name, venue_address, 
 
 ('T1 vs Gen.G 결승전', 'ESPORTS', 'T1 GenG 롤드컵 이스포츠 LoL', '인천 송도컨벤시아', '인천광역시 연수구 센트럴로 123', 37.3878012, 126.6432053,
  '2026 LoL Champions Korea 결승전. T1과 Gen.G의 최종 대결!',
- 'https://khuthon-bucket.s3.ap-northeast-2.amazonaws.com/events/7e7cb371-048f-430a-9d42-72e58d6ed211_%EC%98%A4%ED%8E%98%EB%9D%BC%EC%9D%98+%EC%9C%A0%EB%A0%B9.png', NOW(), NOW()),
+ 'https://khuthon-bucket.s3.ap-northeast-2.amazonaws.com/events/ebc52ea7-849c-469f-b553-7dcab3405807_LCK.png', NOW(), NOW()),
 ('연극 햄릿', 'MUSICAL', '햄릿 연극 명동예술극장 클래식', '명동예술극장', '서울특별시 중구 남대문로 2길 12', 37.5642, 126.9847,
  '셰익스피어의 4대 비극 중 하나인 햄릿. 명동예술극장에서 만나는 고전의 감동.',
  'https://khuthon-bucket.s3.ap-northeast-2.amazonaws.com/events/8c490851-d0f4-46df-b6c0-2efd90622786_%ED%96%84%EB%A6%BF.png', NOW(), NOW()),
