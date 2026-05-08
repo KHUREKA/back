@@ -5,10 +5,10 @@
 
 -- 1. users (테스트 사용자 3명)
 -- 비밀번호: password123 (BCrypt 인코딩)
-INSERT INTO users (email, password, username, role, phone) VALUES
-('user1@test.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '홍길동', 'USER', '010-1111-1111'),
-('user2@test.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '김철수', 'USER', '010-2222-2222'),
-('admin@test.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '관리자', 'ADMIN', '010-9999-9999');
+INSERT INTO users (email, password, username, role, phone, seat_preference) VALUES
+('user1@test.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '홍길동(눈침침)', 'USER', '010-1111-1111', 'EYESIGHT'),
+('user2@test.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '김철수(다리불편)', 'USER', '010-2222-2222', 'LEG'),
+('admin@test.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', '관리자', 'ADMIN', '010-9999-9999', 'NONE');
 
 -- 2. ticket_events (공연/경기 4개)
 INSERT INTO ticket_events (title, category, keyword, venue_name, venue_address, destination_latitude, destination_longitude, description, thumbnail_url, created_at, updated_at) VALUES
