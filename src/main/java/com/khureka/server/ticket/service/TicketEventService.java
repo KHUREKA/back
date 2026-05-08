@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -151,10 +153,15 @@ public class TicketEventService {
             nearbyEvents = summaries.stream().limit(5).toList();
         }
 
-        // 2. 이런 문화도 있어요: 나머지 (또는 전체 중 랜덤/최신순 등)
-        // 여기서는 간단히 전체 목록을 반환하거나, 내 근처를 제외한 목록을 반환
-        List<EventSummaryResponse> recommendedEvents = summaries.stream()
+        // 2. 이런 문화도 있어요: 나머지 중 랜덤하게 최대 5개
+        List<EventSummaryResponse> remaining = summaries.stream()
                 .filter(s -> !nearbyEvents.contains(s))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        Collections.shuffle(remaining); // 무작위 추천
+
+        List<EventSummaryResponse> recommendedEvents = remaining.stream()
+                .limit(5)
                 .toList();
 
         return EventHomeResponse.builder()
